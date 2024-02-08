@@ -13,11 +13,20 @@
                     <div id="tokens"></div>
                 </div>
             </div>
-            <div id="button-area"></div>
+            <div id="button-area">
+                <div id="button-container">
+                    <div id="turn" class="line"></div>
+                    <div id="player" class="line"></div>
+                    <div id="toggle-n" class="line"></div>
+                    <button onclick="end_turn();">End turn</button>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="constants.js"></script>
     <script src="game.js"></script>
+    <script src="history.js"></script>
     <script src="callbacks.js"></script>
-    <script src="script.js"></script>
+    <script src="start.js"></script>
 </body>
 

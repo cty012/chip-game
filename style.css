@@ -1,5 +1,6 @@
 body {
     margin: 8px;
+    font: 18px "Arial";
 }
 
 #content {
@@ -26,6 +27,32 @@ body {
     height: calc(100vh - 16px - 100px);
 }
 
+#button-area {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 100%;
+}
+
+#button-container {
+    position: relative;
+    margin: 0px 10px;
+    width: 280px;
+}
+
+#button-container .line {
+    margin: 15px 0px;
+    width: 100%;
+}
+
+#turn {
+    height: 50px;
+    font-size: 36px;
+    line-height: 55px;
+}
+
 #board-area {
     float: left;
     display: flex;
@@ -33,13 +60,6 @@ body {
     align-items: center;
     width: 700px;
     height: 100%;
-}
-
-#button-area {
-    float: left;
-    width: 300px;
-    height: 100%;
-    background-color: blue;
 }
 
 #board-container {
@@ -60,8 +80,8 @@ body {
     flex-grow: 1;
 }
 
-.remover-select:hover {
-    background-color: #f0a0a0;
+#board.remover-move .column:hover {
+    background-color: #f0d0d0;
 }
 
 .cell {
@@ -75,9 +95,18 @@ body {
     height: 20px;
     border-radius: 50%;
     border: 1px solid #000;
+    background-color: #d0d0d0;
     transition: left 0.8s, bottom 0.8s;
 }
 
 .token.instant {
     transition: left 0s, bottom 0s;
+}
+
+.token.moved {
+    background-color: #a0a0f0;
+}
+
+.token.moved.removed {
+    background-color: #f0a0a0;
 }
