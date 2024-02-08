@@ -12,13 +12,6 @@ var player = 0;
 var player_names = ["pusher", "remover"];
 
 /**
- * UI elements in the HTML
- */
-var ui_button_area = document.getElementById("button-area");
-var ui_turn = document.getElementById("turn");
-var ui_player = document.getElementById("player");
-
-/**
  * Reset not only the game state but also history completely
  * @param {Number} n New N
  * @param {Number} m New M
@@ -79,7 +72,7 @@ function commit() {
  * Refresh the button area to match the game state and history
  */
 function refresh_button_area() {
-    // TODO: disable buttons that are invalid
+    // Turn and player
     if (player < 2) {
         let player_name = player_names[player];
         let player_name_cap = player_name.charAt(0).toUpperCase() + player_name.slice(1);
@@ -93,4 +86,8 @@ function refresh_button_area() {
         ui_player.innerHTML = `${player_name_cap} wins`;
         ui_player.style.color = [pusher_color_dark, remover_color_dark][player - 2];
     }
+
+    // Display N and M
+    ui_display_n.innerHTML = N;
+    ui_display_m.innerHTML = M;
 }

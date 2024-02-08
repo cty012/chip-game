@@ -17,7 +17,18 @@
                 <div id="button-container">
                     <div id="turn" class="line"></div>
                     <div id="player" class="line"></div>
-                    <div id="toggle-n" class="line"></div>
+                    <div class="line toggle-var" class="line">
+                        <span>N =</span>
+                        <button class="dec-var" onclick="inc_N(-1);">-</button>
+                        <span id="display-n" class="display-var">3</span>
+                        <button class="inc-var" onclick="inc_N(1);">+</button>
+                    </div>
+                    <div class="line toggle-var" class="line">
+                        <span>M =</span>
+                        <button class="dec-var" onclick="inc_M(-1);">-</button>
+                        <span id="display-m" class="display-var">2</span>
+                        <button class="inc-var" onclick="inc_M(1);">+</button>
+                    </div>
                     <button onclick="end_turn();">End turn</button>
                 </div>
             </div>

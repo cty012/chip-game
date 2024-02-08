@@ -94,7 +94,7 @@ function refresh_tokens() {
             } else {
                 // position
                 ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - 10 + "px";
-                ui_token.style.bottom = grid_size * (row + 0.5) + offset[token_id][1] - 10 + "px";
+                ui_token.style.bottom = grid_size * (row + 0.5) - offset[token_id][1] - 10 + "px";
             }
         }
     }
@@ -157,10 +157,12 @@ function calc_token_offset(column_state) {
         if (count <= 1) continue;
         let per_row = Math.ceil(Math.sqrt(count));
         let per_col = Math.ceil(count / per_row);
+        let last_row = count - per_row * (per_col - 1);
         row_to_id[row].forEach((token_id, i) => {
             let x = i % per_row;
             let y = Math.floor(i / per_row);
-            offset[token_id][0] = -0.5 * token_sep * (per_row - 1) + token_sep * x;
+            let cur_row = y === (per_col - 1) ? last_row : per_row;
+            offset[token_id][0] = -0.5 * token_sep * (cur_row - 1) + token_sep * x;
             offset[token_id][1] = -0.5 * token_sep * (per_col - 1) + token_sep * y;
         });
     }

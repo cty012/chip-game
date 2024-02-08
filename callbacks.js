@@ -31,6 +31,18 @@ function col_onclick(col) {
     update_tokens();
 }
 
+function inc_N(delta) {
+    let N_new = Math.min(Math.max(N + delta, N_min), N_max);
+    if (N_new === N) return;
+    init(N_new, M);
+}
+
+function inc_M(delta) {
+    let M_new = Math.min(Math.max(M + delta, M_min), M_max);
+    if (M_new === M) return;
+    init(N, M_new);
+}
+
 function end_turn() {
     // Check if can end turn
     if (player === 0) {

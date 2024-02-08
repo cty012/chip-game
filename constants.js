@@ -6,7 +6,7 @@
 const N_min = 2;
 const N_max = 7;
 const M_min = 1;
-const M_max = 8;
+const M_max = 9;
 
 /**
  * Colors
@@ -30,3 +30,9 @@ const token_sep = 26;
 const ui_board_container = document.getElementById("board-container");
 const ui_board = document.getElementById("board");
 const ui_tokens = document.getElementById("tokens");
+
+const ui_button_area = document.getElementById("button-area");
+const ui_turn = document.getElementById("turn");
+const ui_player = document.getElementById("player");
+const ui_display_n = document.getElementById("display-n");
+const ui_display_m = document.getElementById("display-m");

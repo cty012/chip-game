@@ -53,6 +53,26 @@ body {
     line-height: 55px;
 }
 
+.toggle-var {
+    display: flex;
+}
+
+.toggle-var button {
+    margin: 3px;
+    width: 24px;
+    height: 24px;
+}
+
+.toggle-var span {
+    height: 30px;
+    line-height: 30px;
+}
+
+.display-var {
+    min-width: 20px;
+    text-align: center;
+}
+
 #board-area {
     float: left;
     display: flex;
