@@ -1,0 +1,83 @@
+body {
+    margin: 8px;
+}
+
+#content {
+    margin: auto;
+    width: 1000px;
+    height: calc(100vh - 16px);
+}
+
+#title {
+    width: 100%;
+    height: 100px;
+}
+
+#title div {
+    margin: auto;
+    height: 100%;
+    font-size: 50px;
+    text-align: center;
+    line-height: 100px;
+}
+
+#game {
+    width: 100%;
+    height: calc(100vh - 16px - 100px);
+}
+
+#board-area {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 100%;
+}
+
+#button-area {
+    float: left;
+    width: 300px;
+    height: 100%;
+    background-color: blue;
+}
+
+#board-container {
+    position: relative;
+}
+
+#board {
+    display: flex;
+    width: 400px;
+    height: 480px;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.remover-select:hover {
+    background-color: #f0a0a0;
+}
+
+.cell {
+    border: 1px solid #ddd; /* Cell border */
+    flex-grow: 1;
+}
+
+.token {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    transition: left 0.8s, bottom 0.8s;
+}
+
+.token.instant {
+    transition: left 0s, bottom 0s;
+}
