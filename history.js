@@ -20,7 +20,7 @@ function init(n, m) {
     init_game_state(n, m);
     turn = 0;
     player = 0;
-    ui_board.className = `${player_names[player]}-move`;
+    ui_board_container.className = `${player_names[player]}-move`;
     refresh_button_area();
 }
 
@@ -60,7 +60,7 @@ function commit() {
         player = 1 + winner;
         ui_board.className = `game_over`;
     } else {
-        ui_board.className = `${player_names[player]}-move`;
+        ui_board_container.className = `${player_names[player]}-move`;
     }
 
     // Refresh
@@ -90,4 +90,7 @@ function refresh_button_area() {
     // Display N and M
     ui_display_n.innerHTML = N;
     ui_display_m.innerHTML = M;
+
+    // Display token label
+    ui_token_label.innerHTML = token_labels[token_label];
 }

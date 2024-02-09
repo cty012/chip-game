@@ -15,21 +15,39 @@
             </div>
             <div id="button-area">
                 <div id="button-container">
-                    <div id="turn" class="line"></div>
-                    <div id="player" class="line"></div>
-                    <div class="line toggle-var" class="line">
-                        <span>N =</span>
-                        <button class="dec-var" onclick="inc_N(-1);">-</button>
-                        <span id="display-n" class="display-var">3</span>
-                        <button class="inc-var" onclick="inc_N(1);">+</button>
+                    <div class="section">
+                        <div class="section-title">Game settings</div>
+                        <div class="section-line warning">Warning: changing these will reset the game state!</div>
+                        <div class="section-line toggle-var" class="line">
+                            <span>Number of columns (N):&nbsp;</span>
+                            <button class="dec-var" onclick="inc_N(-1);">-</button>
+                            <span id="display-n" class="display-var">3</span>
+                            <button class="inc-var" onclick="inc_N(1);">+</button>
+                        </div>
+                        <div class="section-line toggle-var" class="line">
+                            <span>Number of tokens per column (M):&nbsp;</span>
+                            <button class="dec-var" onclick="inc_M(-1);">-</button>
+                            <span id="display-m" class="display-var">2</span>
+                            <button class="inc-var" onclick="inc_M(1);">+</button>
+                        </div>
+                        <div class="section-line">
+                            <button class="action" onclick="restart();">Restart</button>
+                        </div>
                     </div>
-                    <div class="line toggle-var" class="line">
-                        <span>M =</span>
-                        <button class="dec-var" onclick="inc_M(-1);">-</button>
-                        <span id="display-m" class="display-var">2</span>
-                        <button class="inc-var" onclick="inc_M(1);">+</button>
+                    <div class="section">
+                        <div class="section-title">Display settings</div>
+                        <div class="section-line toggle-var higher" class="line">
+                            <span>Token label:&nbsp;</span>
+                            <button id="token-label" class="action" onclick="toggle_token_label();">Hidden</button>
+                        </div>
                     </div>
-                    <button onclick="end_turn();">End turn</button>
+                    <div class="section">
+                        <div id="turn" class="section-title"></div>
+                        <div id="player" class="section-line"></div>
+                        <div class="section-line">
+                            <button class="action" onclick="end_turn();">End turn</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

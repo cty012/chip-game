@@ -23,6 +23,7 @@ const remover_color_dark = "#f04040";
  */
 const grid_size = 90;
 const token_sep = 26;
+const token_labels = ["Hidden", "Letter", "Number"]
 
 /**
  * UI elements in the HTML
@@ -32,7 +33,8 @@ const ui_board = document.getElementById("board");
 const ui_tokens = document.getElementById("tokens");
 
 const ui_button_area = document.getElementById("button-area");
-const ui_turn = document.getElementById("turn");
-const ui_player = document.getElementById("player");
 const ui_display_n = document.getElementById("display-n");
 const ui_display_m = document.getElementById("display-m");
+const ui_token_label = document.getElementById("token-label");
+const ui_turn = document.getElementById("turn");
+const ui_player = document.getElementById("player");

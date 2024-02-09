@@ -43,6 +43,16 @@ function inc_M(delta) {
     init(N, M_new);
 }
 
+function toggle_token_label() {
+    token_label = (token_label + 1) % token_labels.length;
+    update_tokens();
+    refresh_button_area();
+}
+
+function restart() {
+    init(N, M);
+}
+
 function end_turn() {
     // Check if can end turn
     if (player === 0) {

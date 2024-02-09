@@ -18,6 +18,11 @@ var token_moved = [];
 var col_removed = -1;
 
 /**
+ * Token label
+ */
+var token_label = 0;
+
+/**
  * Reset the game state completely
  * @param {Number} n New N
  * @param {Number} m New M
@@ -89,12 +94,25 @@ function refresh_tokens() {
         for (let token_id = 0; token_id < M; token_id++) {
             let row = game_state[col][token_id];
             let ui_token = ui_token_arr[col * M + token_id];
+            // display & position
             if (row === -1) {
                 ui_token.style.display = "none";
             } else {
-                // position
                 ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - 10 + "px";
                 ui_token.style.bottom = grid_size * (row + 0.5) - offset[token_id][1] - 10 + "px";
+            }
+            // label
+            switch(token_label) {
+                case 0:
+                    ui_token.innerHTML = "";
+                    break;
+                case 1:
+                    ui_token.innerHTML = String.fromCharCode(65 + token_id);
+                    break;
+                case 2:
+                    ui_token.innerHTML = 1 + token_id + "";
+                    break;
+                default:
             }
         }
     }
@@ -123,6 +141,19 @@ function update_tokens() {
             // position
             ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - 10 + "px";
             ui_token.style.bottom = grid_size * (row + 0.5) + offset[token_id][1] - 10 + "px";
+            // label
+            switch(token_label) {
+                case 0:
+                    ui_token.innerHTML = "";
+                    break;
+                case 1:
+                    ui_token.innerHTML = String.fromCharCode(65 + token_id);
+                    break;
+                case 2:
+                    ui_token.innerHTML = 1 + token_id + "";
+                    break;
+                default:
+            }
             // color
             if (token_moved[col][token_id]) {
                 ui_token.classList.add("moved");
