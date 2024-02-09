@@ -131,6 +131,7 @@ button {
 }
 
 #board-container.remover-move .column:hover {
+    cursor: pointer;
     background-color: #f0d0d0;
 }
 
@@ -166,6 +167,7 @@ button {
 }
 
 #board-container.pusher-move .token:hover {
+    cursor: pointer;
     box-shadow: 0 0 15px rgba(64, 64, 64, 0.8);
 }
 

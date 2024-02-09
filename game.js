@@ -140,7 +140,7 @@ function update_tokens() {
             ui_token.style.display = row === -1 ? "none" : "block";
             // position
             ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - 10 + "px";
-            ui_token.style.bottom = grid_size * (row + 0.5) + offset[token_id][1] - 10 + "px";
+            ui_token.style.bottom = grid_size * (row + 0.5) - offset[token_id][1] - 10 + "px";
             // label
             switch(token_label) {
                 case 0:
