@@ -10,6 +10,7 @@
             <div id="board-area">
                 <div id="board-container">
                     <div id="board"></div>
+                    <div id="row-numbers"></div>
                     <div id="tokens"></div>
                 </div>
             </div>
@@ -20,15 +21,15 @@
                         <div class="section-line warning">Warning: changing these will reset the game state!</div>
                         <div class="section-line toggle-var" class="line">
                             <span>Number of columns (N):&nbsp;</span>
-                            <button class="dec-var" onclick="inc_N(-1);">-</button>
+                            <button id="display-n-dec" class="dec-var" onclick="inc_N(-1);">-</button>
                             <span id="display-n" class="display-var">3</span>
-                            <button class="inc-var" onclick="inc_N(1);">+</button>
+                            <button id="display-n-inc" class="inc-var" onclick="inc_N(1);">+</button>
                         </div>
                         <div class="section-line toggle-var" class="line">
                             <span>Number of tokens per column (M):&nbsp;</span>
-                            <button class="dec-var" onclick="inc_M(-1);">-</button>
+                            <button id="display-m-dec" class="dec-var" onclick="inc_M(-1);">-</button>
                             <span id="display-m" class="display-var">2</span>
-                            <button class="inc-var" onclick="inc_M(1);">+</button>
+                            <button id="display-m-inc" class="inc-var" onclick="inc_M(1);">+</button>
                         </div>
                         <div class="section-line">
                             <button class="action" onclick="restart();">Restart</button>
@@ -45,11 +46,11 @@
                         <div id="turn" class="section-title"></div>
                         <div id="player" class="section-line"></div>
                         <div class="section-line">
-                            <button class="action symbol-only" onclick="traverse_history(-1);">&#x21B6;</button>
-                            <button class="action symbol-only" onclick="traverse_history(1);">&#x21B7;</button>
+                            <button id="undo" class="action symbol-only" onclick="traverse_history(-1);">&#x21B6;</button>
+                            <button id="redo" class="action symbol-only" onclick="traverse_history(1);">&#x21B7;</button>
                         </div>
                         <div class="section-line">
-                            <button class="action" onclick="end_turn();">End turn</button>
+                            <button id="end-turn" class="action" onclick="end_turn();">End turn</button>
                         </div>
                     </div>
                 </div>

@@ -23,6 +23,20 @@ var col_removed = -1;
 var token_label = 0;
 
 /**
+ * @returns The diameter of the tokens
+ */
+function get_token_diam() {
+    return token_diams[M - M_min];
+}
+
+/**
+ * @returns The separation of the tokens
+ */
+function get_token_sep() {
+    return token_seps[M - M_min];
+}
+
+/**
  * Reset the game state completely
  * @param {Number} n New N
  * @param {Number} m New M
@@ -74,6 +88,14 @@ function refresh_board() {
             </div>
         `
     ).join("");
+    ui_row_numbers.innerHTML = Array.from(
+        { length: N + 1 },
+        (v, i) => `
+            <div class="row-number" style="bottom:${grid_size * (i + 0.5) - 15}px;">
+                ${i}
+            </div>
+        `
+    ).join("");
 }
 
 /**
@@ -91,6 +113,9 @@ function refresh_tokens() {
 
     // Remove instant movement from all tokens
     ui_tokens.querySelectorAll(".token").forEach(ui_token => {
+        ui_token.style.width = get_token_diam() + "px";
+        ui_token.style.height = get_token_diam() + "px";
+        ui_token.style.lineHeight = get_token_diam() + "px";
         ui_token.classList.remove("instant");
     });
 }
@@ -111,8 +136,8 @@ function update_tokens() {
             // display
             ui_token.style.display = row === -1 ? "none" : "block";
             // position
-            ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - 10 + "px";
-            ui_token.style.bottom = grid_size * (row + 0.5) - offset[token_id][1] - 10 + "px";
+            ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - get_token_diam() * 0.5 + "px";
+            ui_token.style.bottom = grid_size * (row + 0.5) - offset[token_id][1] - get_token_diam() * 0.5 + "px";
             // label
             switch(token_label) {
                 case 0:
@@ -165,8 +190,8 @@ function calc_token_offset(column_state) {
             let x = i % per_row;
             let y = Math.floor(i / per_row);
             let cur_row = y === (per_col - 1) ? last_row : per_row;
-            offset[token_id][0] = -0.5 * token_sep * (cur_row - 1) + token_sep * x;
-            offset[token_id][1] = -0.5 * token_sep * (per_col - 1) + token_sep * y;
+            offset[token_id][0] = -0.5 * get_token_sep() * (cur_row - 1) + get_token_sep() * x;
+            offset[token_id][1] = -0.5 * get_token_sep() * (per_col - 1) + get_token_sep() * y;
         });
     }
 

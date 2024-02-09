@@ -22,6 +22,7 @@ function token_onclick(index) {
 
     // Update token positions
     update_tokens();
+    refresh_button_area();
 }
 
 function col_onclick(col) {
@@ -29,6 +30,7 @@ function col_onclick(col) {
     if (player !== 1) return;
     col_removed = col;
     update_tokens();
+    refresh_button_area();
 }
 
 function inc_N(delta) {
@@ -55,29 +57,7 @@ function restart() {
 
 function end_turn() {
     // Check if can end turn
-    if (player === 0) {
-        // Make sure at least one token is pushed
-        let can_end_turn = false;
-        for (let col = 0; col < N; col++) {
-            for (let token_id = 0; token_id < M; token_id++) {
-                if (token_moved[col][token_id]) can_end_turn = true;
-            }
-        }
-        if (!can_end_turn) return;
-    } else if (player === 1) {
-        // Make sure at least one token is removed
-        if (col_removed < 0) return;
-        let can_end_turn = false;
-        for (let token_id = 0; token_id < M; token_id++) {
-            if (token_moved[col_removed][token_id]) {
-                can_end_turn = true;
-            }
-        }
-        if (!can_end_turn) return;
-    } else {
-        // Game already ended
-        return;
-    }
+    if (!can_end_turn()) return;
 
     // End turn
     commit();

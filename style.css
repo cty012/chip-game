@@ -1,3 +1,12 @@
+:root {
+    --pusher-color: #a0a0f0;
+    --pusher-color-light: #d0d0f0;
+    --pusher-color-dark: #4040f0;
+    --remover-color: #ff8e4d;
+    --remover-color-light: #ffcab3;
+    --remover-color-dark: #e65400;
+}
+
 body {
     margin: 8px;
     font: 16px "Arial";
@@ -5,6 +14,11 @@ body {
 
 button {
     font: 14px "Arial";
+}
+
+button.disabled {
+    background-color: #c0c0c0;
+    border-style: none;
 }
 
 #content {
@@ -140,12 +154,22 @@ button {
 
 #board-container.remover-move .column:hover {
     cursor: pointer;
-    background-color: #f0d0d0;
+    background-color: var(--remover-color-light);
 }
 
 .cell {
     border: 1px solid #ddd; /* Cell border */
     flex-grow: 1;
+}
+
+.row-number {
+    position: absolute;
+    left: -40px;
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 30px;
 }
 
 .token {
@@ -156,8 +180,7 @@ button {
     border: 1px solid #000;
     color: #000000;
     text-align: center;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
     background-color: #d0d0d0;
     transition: left 0.8s, bottom 0.8s, box-shadow 0.2s;
 }
@@ -167,11 +190,11 @@ button {
 }
 
 .token.moved {
-    background-color: #a0a0f0;
+    background-color: var(--pusher-color);
 }
 
 .token.moved.removed {
-    background-color: #f0a0a0;
+    background-color: var(--remover-color);
 }
 
 #board-container.pusher-move .token:hover {

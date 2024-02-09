@@ -68,7 +68,7 @@ function refresh_all(instant) {
     let winner = check_game_over();
     if (player === 0 && winner > 0) {
         player = 1 + winner;
-        ui_board.className = `game_over`;
+        ui_board_container.className = `game-over`;
     } else {
         ui_board_container.className = `${player_names[player]}-move`;
     }
@@ -80,6 +80,28 @@ function refresh_all(instant) {
         update_tokens();
     }
     refresh_button_area();
+}
+
+function can_end_turn() {
+    if (player === 0) {
+        // Make sure at least one token is pushed
+        for (let col = 0; col < N; col++) {
+            for (let token_id = 0; token_id < M; token_id++) {
+                if (token_moved[col][token_id]) {
+                    return true;
+                }
+            }
+        }
+    } else if (player === 1) {
+        // Make sure at least one token is removed
+        if (col_removed < 0) return false;
+        for (let token_id = 0; token_id < M; token_id++) {
+            if (token_moved[col_removed][token_id]) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 /**
@@ -112,13 +134,13 @@ function commit() {
             return;
     }
 
-    // Refresh
-    refresh_all(false);
-
     // Discard future & add snapshot
     hist.splice(hist_ptr + 1);
     hist.push(take_snapshot());
     hist_ptr++;
+
+    // Refresh
+    refresh_all(false);
 }
 
 /**
@@ -130,6 +152,19 @@ function traverse_history(delta) {
     if (hist_ptr_new === hist_ptr) return;
     hist_ptr = hist_ptr_new;
     load_snapshot(hist[hist_ptr]);
+}
+
+/**
+ * Helper function. Disables buttons under certain conditions
+ * @param {*} ui_button Button to disable/enable
+ * @param {bool} condition Condition value
+ */
+function disable_on(ui_button, condition) {
+    if (condition) {
+        ui_button.classList.add("disabled");
+    } else {
+        ui_button.classList.remove("disabled");
+    }
 }
 
 /**
@@ -154,7 +189,18 @@ function refresh_button_area() {
     // Display N and M
     ui_display_n.innerHTML = N;
     ui_display_m.innerHTML = M;
+    disable_on(ui_display_n_dec, N === N_min);
+    disable_on(ui_display_n_inc, N === N_max);
+    disable_on(ui_display_m_dec, M === M_min);
+    disable_on(ui_display_m_inc, M === M_max);
 
     // Display token label
     ui_token_label.innerHTML = token_labels[token_label];
+
+    // Display undo & redo
+    disable_on(ui_undo, hist_ptr === 0);
+    disable_on(ui_redo, hist_ptr === hist.length - 1);
+
+    // Display end turn
+    disable_on(ui_end_turn, !can_end_turn());
 }
