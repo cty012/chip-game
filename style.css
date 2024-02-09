@@ -98,7 +98,15 @@ button {
 }
 
 #button-container .action {
+    min-width: 40px;
     height: 40px;
+    line-height: 34px;
+}
+
+#button-container .action.symbol-only {
+    min-width: 40px;
+    height: 40px;
+    font-size: 24px;
     line-height: 34px;
 }
 
@@ -168,7 +176,7 @@ button {
 
 #board-container.pusher-move .token:hover {
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(64, 64, 64, 0.8);
+    box-shadow: 0 0 15px rgba(64, 64, 64, 0.9);
 }
 
 #board-container.remover-move .token {

@@ -80,45 +80,17 @@ function refresh_board() {
  * Refresh the tokens UI to match the game state
  */
 function refresh_tokens() {
+    // Generate tokens with instant movement
     ui_tokens.innerHTML = Array.from(
         { length: N * M },
         (v, i) => `<div class="token instant" onclick="token_onclick(${i});"></div>`
     ).join("");
-    let ui_token_arr = ui_tokens.querySelectorAll(".token");
 
-    // Iterate through each column
-    for (let col = 0; col < N; col++) {
-        // Find the position offset of each token
-        let offset = calc_token_offset(game_state[col])
-        // Assign the position of each token
-        for (let token_id = 0; token_id < M; token_id++) {
-            let row = game_state[col][token_id];
-            let ui_token = ui_token_arr[col * M + token_id];
-            // display & position
-            if (row === -1) {
-                ui_token.style.display = "none";
-            } else {
-                ui_token.style.left = grid_size * (col + 0.5) + offset[token_id][0] - 10 + "px";
-                ui_token.style.bottom = grid_size * (row + 0.5) - offset[token_id][1] - 10 + "px";
-            }
-            // label
-            switch(token_label) {
-                case 0:
-                    ui_token.innerHTML = "";
-                    break;
-                case 1:
-                    ui_token.innerHTML = String.fromCharCode(65 + token_id);
-                    break;
-                case 2:
-                    ui_token.innerHTML = 1 + token_id + "";
-                    break;
-                default:
-            }
-        }
-    }
+    // Update tokens
+    update_tokens();
 
-    // Remove the instant class from all tokens
-    ui_token_arr.forEach(ui_token => {
+    // Remove instant movement from all tokens
+    ui_tokens.querySelectorAll(".token").forEach(ui_token => {
         ui_token.classList.remove("instant");
     });
 }

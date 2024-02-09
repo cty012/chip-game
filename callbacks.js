@@ -81,7 +81,4 @@ function end_turn() {
 
     // End turn
     commit();
-
-    // Save current game state to history
-    // TODO
 }
