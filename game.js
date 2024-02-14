@@ -8,10 +8,10 @@ var N = 3;
 /**
  * Number of tokens per column
  */
-var M = 2;
+var K = 2;
 
 /**
- * Game state (dimension: (N, M))
+ * Game state (dimension: (N, K))
  */
 var game_state = [];
 var token_moved = [];
@@ -26,26 +26,26 @@ var token_label = 0;
  * @returns The diameter of the tokens
  */
 function get_token_diam() {
-    return token_diams[M - M_min];
+    return token_diams[K - K_min];
 }
 
 /**
  * @returns The separation of the tokens
  */
 function get_token_sep() {
-    return token_seps[M - M_min];
+    return token_seps[K - K_min];
 }
 
 /**
  * Reset the game state completely
  * @param {Number} n New N
- * @param {Number} m New M
+ * @param {Number} k New K
  */
-function init_game_state(n, m) {
+function init_game_state(n, k) {
     N = n;
-    M = m;
-    game_state = Array.from({ length: n }, () => Array(m).fill(0));
-    token_moved = Array.from({ length: n }, () => Array(m).fill(false));
+    K = k;
+    game_state = Array.from({ length: n }, () => Array(k).fill(0));
+    token_moved = Array.from({ length: n }, () => Array(k).fill(false));
     col_removed = -1;
     refresh_board();
     refresh_tokens();
@@ -104,7 +104,7 @@ function refresh_board() {
 function refresh_tokens() {
     // Generate tokens with instant movement
     ui_tokens.innerHTML = Array.from(
-        { length: N * M },
+        { length: N * K },
         (v, i) => `<div class="token instant" onclick="token_onclick(${i});"></div>`
     ).join("");
 
@@ -130,9 +130,9 @@ function update_tokens() {
         // Find the position offset of each token
         let offset = calc_token_offset(game_state[col])
         // Assign the position of each token
-        for (let token_id = 0; token_id < M; token_id++) {
+        for (let token_id = 0; token_id < K; token_id++) {
             let row = game_state[col][token_id];
-            let ui_token = ui_token_arr[col * M + token_id];
+            let ui_token = ui_token_arr[col * K + token_id];
             // display
             ui_token.style.display = row === -1 ? "none" : "block";
             // position

@@ -28,10 +28,10 @@ var hist_ptr = 0;
 /**
  * Reset not only the game state but also history completely
  * @param {Number} n New N
- * @param {Number} m New M
+ * @param {Number} k New K
  */
-function init(n, m) {
-    init_game_state(n, m);
+function init(n, k) {
+    init_game_state(n, k);
     turn = 0;
     player = 0;
     hist = [take_snapshot()];
@@ -86,7 +86,7 @@ function can_end_turn() {
     if (player === 0) {
         // Make sure at least one token is pushed
         for (let col = 0; col < N; col++) {
-            for (let token_id = 0; token_id < M; token_id++) {
+            for (let token_id = 0; token_id < K; token_id++) {
                 if (token_moved[col][token_id]) {
                     return true;
                 }
@@ -95,7 +95,7 @@ function can_end_turn() {
     } else if (player === 1) {
         // Make sure at least one token is removed
         if (col_removed < 0) return false;
-        for (let token_id = 0; token_id < M; token_id++) {
+        for (let token_id = 0; token_id < K; token_id++) {
             if (token_moved[col_removed][token_id]) {
                 return true;
             }
@@ -117,12 +117,12 @@ function commit() {
         }
         case 1: {
             // If it is Remover's turn, execute col_removed and clear token_moved & col_removed
-            for (let token_id = 0; token_id < M; token_id++) {
+            for (let token_id = 0; token_id < K; token_id++) {
                 if (token_moved[col_removed][token_id]) {
                     game_state[col_removed][token_id] = -1;
                 }
             }
-            token_moved = Array.from({ length: N }, () => Array(M).fill(false));
+            token_moved = Array.from({ length: N }, () => Array(K).fill(false));
             col_removed = -1;
             // Switch to Pusher's turn
             player = 0;
@@ -186,13 +186,13 @@ function refresh_button_area() {
         ui_player.style.color = [pusher_color_dark, remover_color_dark][player - 2];
     }
 
-    // Display N and M
+    // Display N and K
     ui_display_n.innerHTML = N;
-    ui_display_m.innerHTML = M;
+    ui_display_k.innerHTML = K;
     disable_on(ui_display_n_dec, N === N_min);
     disable_on(ui_display_n_inc, N === N_max);
-    disable_on(ui_display_m_dec, M === M_min);
-    disable_on(ui_display_m_inc, M === M_max);
+    disable_on(ui_display_k_dec, K === K_min);
+    disable_on(ui_display_k_inc, K === K_max);
 
     // Display token label
     ui_token_label.innerHTML = token_labels[token_label];

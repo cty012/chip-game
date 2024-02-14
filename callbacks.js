@@ -5,8 +5,8 @@ function token_onclick(index) {
     if (player !== 0) return;
 
     // Find which token is clicked
-    let col = Math.floor(index / M);
-    let token_id = index % M;
+    let col = Math.floor(index / K);
+    let token_id = index % K;
 
     // Skip invalid tokens
     if (game_state[col][token_id] < 0) return;
@@ -36,13 +36,13 @@ function col_onclick(col) {
 function inc_N(delta) {
     let N_new = Math.min(Math.max(N + delta, N_min), N_max);
     if (N_new === N) return;
-    init(N_new, M);
+    init(N_new, K);
 }
 
-function inc_M(delta) {
-    let M_new = Math.min(Math.max(M + delta, M_min), M_max);
-    if (M_new === M) return;
-    init(N, M_new);
+function inc_K(delta) {
+    let K_new = Math.min(Math.max(K + delta, K_min), K_max);
+    if (K_new === K) return;
+    init(N, K_new);
 }
 
 function toggle_token_label() {
@@ -52,7 +52,7 @@ function toggle_token_label() {
 }
 
 function restart() {
-    init(N, M);
+    init(N, K);
 }
 
 function end_turn() {

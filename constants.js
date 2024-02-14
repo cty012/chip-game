@@ -5,8 +5,8 @@
  */
 const N_min = 2;
 const N_max = 7;
-const M_min = 1;
-const M_max = 9;
+const K_min = 1;
+const K_max = 9;
 
 /**
  * Colors
@@ -38,9 +38,9 @@ const ui_button_area = document.getElementById("button-area");
 const ui_display_n_dec = document.getElementById("display-n-dec");
 const ui_display_n = document.getElementById("display-n");
 const ui_display_n_inc = document.getElementById("display-n-inc");
-const ui_display_m_dec = document.getElementById("display-m-dec");
-const ui_display_m = document.getElementById("display-m");
-const ui_display_m_inc = document.getElementById("display-m-inc");
+const ui_display_k_dec = document.getElementById("display-k-dec");
+const ui_display_k = document.getElementById("display-k");
+const ui_display_k_inc = document.getElementById("display-k-inc");
 
 const ui_token_label = document.getElementById("token-label");
 
