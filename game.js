@@ -64,7 +64,7 @@ function check_game_over() {
         col_state.forEach(row => {
             if (row === -1) {
                 return;
-            } else if (row >= N) {
+            } else if (false /* row >= N */) {  // Pusher never wins
                 winner = 1;
             } else {
                 if (winner === 2) winner = 0;
@@ -78,18 +78,20 @@ function check_game_over() {
  * Refresh the board UI to match the game state
  */
 function refresh_board() {
+    let num_rows = Math.max(N + 1, Math.max(...game_state.flat()) + 2);
+    console.log("Number of rows: " + num_rows);
     ui_board.style.width = grid_size * N + "px";
-    ui_board.style.height = grid_size * (N + 1) + "px";
+    ui_board.style.height = grid_size * num_rows + "px";
     ui_board.innerHTML = Array.from(
         { length: N },
         (v, i) => `
             <div class="column" onclick="col_onclick(${i})">
-                ${`<div class="cell"></div>`.repeat(N + 1)}
+                ${`<div class="cell"></div>`.repeat(num_rows)}
             </div>
         `
     ).join("");
     ui_row_numbers.innerHTML = Array.from(
-        { length: N + 1 },
+        { length: num_rows },
         (v, i) => `
             <div class="row-number" style="bottom:${grid_size * (i + 0.5) - 15}px;">
                 ${i}
@@ -174,13 +176,14 @@ function calc_token_offset(column_state) {
     let offset = Array.from({ length: column_state.length }, () => [0, 0]);
 
     // Construct row_to_id
-    let row_to_id = Array.from({ length: N + 1 }, () => []);
+    let num_rows = Math.max(...column_state) + 1;
+    let row_to_id = Array.from({ length: num_rows }, () => []);
     column_state.forEach((row, token_id) => {
         if (row >= 0) row_to_id[row].push(token_id);
     });
 
     // Analyze each row to find offset
-    for (let row = 0; row <= N; row++) {
+    for (let row = 0; row < num_rows; row++) {
         let count = row_to_id[row].length;
         if (count <= 1) continue;
         let per_row = Math.ceil(Math.sqrt(count));

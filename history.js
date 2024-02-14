@@ -57,11 +57,15 @@ function load_snapshot(snapshot) {
     game_state = snapshot.game_state;
     token_moved = snapshot.token_moved;
     col_removed = snapshot.col_removed;
+
+    // Update board size on pusher's turn
+    if (player === 0) refresh_board();
+    // In all cases refresh everything else
     refresh_all(true);
 }
 
 /**
- * Completely refreshes the UI given the loaded snapshot
+ * Completely refreshes the UI (except for the board) given the loaded snapshot
  */
 function refresh_all(instant) {
     // Toggle board mode
@@ -139,7 +143,9 @@ function commit() {
     hist.push(take_snapshot());
     hist_ptr++;
 
-    // Refresh
+    // Update board size on pusher's turn
+    if (player === 0) refresh_board();
+    // In all cases refresh everything else
     refresh_all(false);
 }
 
