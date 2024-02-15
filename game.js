@@ -3,12 +3,17 @@
 /**
  * Number of columns
  */
-var N = 3;
+var N;
 
 /**
  * Number of tokens per column
  */
-var K = 2;
+var K;
+
+/**
+ * Number of rows
+ */
+var NUM_ROWS;
 
 /**
  * Game state (dimension: (N, K))
@@ -78,8 +83,14 @@ function check_game_over() {
  * Refresh the board UI to match the game state
  */
 function refresh_board() {
-    let num_rows = Math.max(N + 1, Math.max(...game_state.flat()) + 2);
-    console.log("Number of rows: " + num_rows);
+    refresh_board_with_rows(Math.max(N + 1, Math.max(...game_state.flat()) + 2));
+}
+
+/**
+ * Refresh the board UI with the given number of rows
+ */
+function refresh_board_with_rows(num_rows) {
+    NUM_ROWS = num_rows;
     ui_board.style.width = grid_size * N + "px";
     ui_board.style.height = grid_size * num_rows + "px";
     ui_board.innerHTML = Array.from(

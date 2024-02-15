@@ -43,7 +43,7 @@ function init(n, k) {
  * @returns Snapshot of the current game state to save in history
  */
 function take_snapshot() {
-    return JSON.stringify({ turn, player, game_state, token_moved, col_removed });
+    return JSON.stringify({ turn, player, game_state, token_moved, col_removed, num_rows: NUM_ROWS });
 }
 
 /**
@@ -58,8 +58,8 @@ function load_snapshot(snapshot) {
     token_moved = snapshot.token_moved;
     col_removed = snapshot.col_removed;
 
-    // Update board size on pusher's turn
-    if (player === 0) refresh_board();
+    // Update board size
+    refresh_board_with_rows(snapshot.num_rows);
     // In all cases refresh everything else
     refresh_all(true);
 }
@@ -138,13 +138,14 @@ function commit() {
             return;
     }
 
+    // Update board size on pusher's turn
+    if (player === 0) refresh_board();
+
     // Discard future & add snapshot
     hist.splice(hist_ptr + 1);
     hist.push(take_snapshot());
     hist_ptr++;
 
-    // Update board size on pusher's turn
-    if (player === 0) refresh_board();
     // In all cases refresh everything else
     refresh_all(false);
 }
