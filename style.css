@@ -79,6 +79,32 @@ button.disabled {
     width: 100%;
 }
 
+.section-line.menu {
+    height: 30px;
+}
+
+.section-line.menu div {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.section-line.menu div.selected {
+    border-bottom: 3px solid black;
+}
+
+.section-line.menu div:hover {
+    background-color: #f0f0f0;
+}
+
+.hidden {
+    display: none;
+}
+
 .warning {
     color: #f00;
     font-style: italic;

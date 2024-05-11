@@ -2,7 +2,6 @@
 <head>
     <title>Chip Game</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="ai.css">
 </head>
 <body>
     <div id="content">
@@ -16,8 +15,14 @@
                 </div>
             </div>
             <div id="button-area">
-                <div id="button-container">
-                    <div class="section">
+                <div class="button-container">
+                    <div id="sec-menu-bar" class="section">
+                        <div class="section-line menu">
+                            <div id="tab-settings" class="selected" onclick="menu_select(`settings`);">Settings</div>
+                            <div id="tab-ai" onclick="menu_select(`ai`);">AI</div>
+                        </div>
+                    </div>
+                    <div id="sec-game-settings" class="section">
                         <div class="section-title">Game settings</div>
                         <div class="section-line warning">Warning: changing these will reset the game state!</div>
                         <div class="section-line toggle-var" class="line">
@@ -36,14 +41,14 @@
                             <button class="action" onclick="restart();">Restart</button>
                         </div>
                     </div>
-                    <div class="section">
+                    <div id="sec-display-settings" class="section">
                         <div class="section-title">Display settings</div>
                         <div class="section-line toggle-var higher" class="line">
                             <span>Token label:&nbsp;</span>
                             <button id="token-label" class="action" onclick="toggle_token_label();">Hidden</button>
                         </div>
                     </div>
-                    <div class="section">
+                    <div id="sec-ai" class="section hidden">
                         <div class="section-title">AI</div>
                         <div class="section-line">
                             <span>Upload winning states:&nbsp;</span>
@@ -57,7 +62,7 @@
                             <button id="ai-move" class="action" onclick="ai_move();">AI move</button>
                         </div>
                     </div>
-                    <div class="section">
+                    <div id="sec-controls" class="section">
                         <div id="turn" class="section-title"></div>
                         <div id="player" class="section-line"></div>
                         <div class="section-line">

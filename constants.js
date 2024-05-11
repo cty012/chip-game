@@ -49,3 +49,11 @@ const ui_player = document.getElementById("player");
 const ui_undo = document.getElementById("undo");
 const ui_redo = document.getElementById("redo");
 const ui_end_turn = document.getElementById("end-turn");
+
+/**
+ * Sections to display in each tab
+ */
+const sections_to_display = {
+    "settings": ["sec-menu-bar", "sec-game-settings", "sec-display-settings", "sec-controls"],
+    "ai": ["sec-menu-bar", "sec-ai", "sec-controls"],
+};

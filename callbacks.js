@@ -33,6 +33,25 @@ function col_onclick(col) {
     refresh_button_area();
 }
 
+function menu_select(tabname) {
+    // Update tabs
+    Array.from(document.querySelectorAll(".section-line.menu div")).forEach(item => {
+        if (item.id === "tab-" + tabname) {
+            item.classList.add("selected");
+        } else {
+            item.classList.remove("selected");
+        }
+    });
+
+    // Update sections
+    Array.from(document.getElementsByClassName("section")).forEach(item => {
+        item.classList.add("hidden");
+    });
+    sections_to_display[tabname].forEach(id => {
+        document.getElementById(id).classList.remove("hidden");
+    });
+}
+
 function inc_N(delta) {
     let N_new = Math.min(Math.max(N + delta, N_min), N_max);
     if (N_new === N) return;
