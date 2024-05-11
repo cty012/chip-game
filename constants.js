@@ -9,6 +9,16 @@ const K_min = 1;
 const K_max = 9;
 
 /**
+ * Compare results
+ */
+const Compare = {
+    LESS: -1,
+    EQUAL: 0,
+    GREATER: 1,
+    NONE: null,
+};
+
+/**
  * Colors
  */
 const pusher_color = "#a0a0f0";
