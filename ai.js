@@ -57,13 +57,35 @@ function ai_move_pusher() {
 }
 
 function ai_move_remover() {
-    // TODO AI should search for all possible moves and find one that results in losing states.
+    for (let move = 0; move < N; move++) {
+        // Check that this move is valid
+        if (token_moved[move].every(moved => !moved)) continue;
+
+        // Calculate the resulting board
+        const result_game_state = JSON.parse(JSON.stringify(game_state));
+        for (let j = 0; j < K; j++) {
+            if (token_moved[move][j]) {
+                result_game_state[move][j] = -1;
+            }
+        }
+
+        // Check if this is a losing state
+        if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state))) {
+            // Then make this move
+            col_removed = move;
+            update_tokens();
+            refresh_button_area();
+            return;
+        }
+    }
+
+    alert("AI failed to find a move");
 }
 
 function ai_move() {
-    if (player === 0) {
+    if (player === Player.PUSHER) {
         ai_move_pusher();
-    } else if (player === 1) {
+    } else if (player === Player.REMOVER) {
         ai_move_remover();
     }
 }

@@ -9,6 +9,14 @@ const K_min = 1;
 const K_max = 9;
 
 /**
+ * Players
+ */
+const Player = {
+    PUSHER: 0,
+    REMOVER: 1,
+};
+
+/**
  * Compare results
  */
 const Compare = {

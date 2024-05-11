@@ -1,7 +1,7 @@
 "use strict";
 
 function col_state_leq(col1, col2) {
-    col1_sorted, col2_sorted = col1, col2;
+    col1_sorted, col2_sorted = JSON.parse(JSON.stringify(col1)), JSON.parse(JSON.stringify(col2));
     col1.sort((a, b) => b - a);
     col2.sort((a, b) => b - a);
     const len = max(col1_sorted.length, col2_sorted.length);

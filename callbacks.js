@@ -27,7 +27,8 @@ function token_onclick(index) {
 
 function col_onclick(col) {
     // If not Remover's turn, do nothing
-    if (player !== 1) return;
+    if (player !== Player.REMOVER) return;
+
     col_removed = col;
     update_tokens();
     refresh_button_area();
