@@ -2,6 +2,7 @@
 <head>
     <title>Chip Game</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="ai.css">
 </head>
 <body>
     <div id="content">
@@ -43,6 +44,20 @@
                         </div>
                     </div>
                     <div class="section">
+                        <div class="section-title">AI</div>
+                        <div class="section-line">
+                            <span>Upload winning states:&nbsp;</span>
+                            <input type="file" id="winning-file" name="winning-file">
+                        </div>
+                        <div class="section-line">
+                            <span>Upload losing states:&nbsp;</span>
+                            <input type="file" id="losing-file" name="losing-file">
+                        </div>
+                        <div class="section-line">
+                            <button id="ai-move" class="action" onclick="ai_move();">AI move</button>
+                        </div>
+                    </div>
+                    <div class="section">
                         <div id="turn" class="section-title"></div>
                         <div id="player" class="section-line"></div>
                         <div class="section-line">
@@ -57,10 +72,12 @@
             </div>
         </div>
     </div>
-    <script src="constants.js"></script>
-    <script src="game.js"></script>
-    <script src="history.js"></script>
-    <script src="callbacks.js"></script>
-    <script src="start.js"></script>
+    <script src="constants.js"></script>  <!-- Declares constants -->
+    <script src="game.js"></script>  <!-- Defines the core game functions -->
+    <script src="compare.js"></script>  <!-- Compare column states and game states -->
+    <script src="history.js"></script>  <!-- Records history of moves -->
+    <script src="ai.js"></script>  <!-- AI related functions -->
+    <script src="callbacks.js"></script>  <!-- Defines callbacks for buttons -->
+    <script src="start.js"></script>  <!-- Entry point -->
 </body>
 
