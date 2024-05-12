@@ -15,24 +15,24 @@ function decode_game_state(str) {
 
     // Initialize the NxK array
     const parsed_game_state = Array.from({ length: n }, () => Array(k).fill(0));
-    const parsed_token_moved = Array.from({ length: n }, () => Array(k).fill(false));
 
     // Process each subsequent line to extract pairs
     for (let i = 0; i < n; i++) {
-        const row = lines[i+1].trim().split(/\s+/);
+        const col = lines[i+1].trim().split(/\s+/);
 
-        if (row.length !== k) {
+        if (col.length !== k) {
             return null;
         }
 
-        row.forEach((pair, j) => {
-            const [a, b] = pair.split(':').map(Number);
-            parsed_game_state[i][j] = a;
-            parsed_token_moved[i][j] = (b !== 0);
+        col.forEach((pair, j) => {
+            const [r, _] = pair.split(':').map(Number);
+            parsed_game_state[i][j] = r;
         });
+
+        parsed_game_state[i].sort((a, b) => b - a);
     }
 
-    return { parsed_game_state, parsed_token_moved };
+    return parsed_game_state;
 }
 
 function decode_file(file, callback) {
@@ -69,17 +69,20 @@ function ai_move_remover() {
             }
         }
 
+        // Sort the affected column
+        result_game_state[move].sort((a, b) => b - a);
+
         // Check if this is a losing state
-        if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state.parsed_game_state))) {
+        if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state, true))) {
             // Then make this move
             col_removed = move;
             update_tokens();
             refresh_button_area();
-            return;
+            return true;
         }
     }
 
-    alert("AI failed to find a move");
+    return false;
 }
 
 function ai_move() {
@@ -88,12 +91,13 @@ function ai_move() {
     ai_move_btn.innerHTML = "AI making a move...";
 
     setTimeout(() => {
+        let msg = "Invalid player";
         if (player === Player.PUSHER) {
-            ai_move_pusher();
+            msg = ai_move_pusher() ? "AI make move" : "AI failed to find a move";
         } else if (player === Player.REMOVER) {
-            ai_move_remover();
+            msg = ai_move_remover() ? "AI make move" : "AI failed to find a move";
         }
-        ai_move_btn.innerHTML = "AI make move";
+        ai_move_btn.innerHTML = msg;
     });
 }
 
