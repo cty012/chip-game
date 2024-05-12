@@ -61,7 +61,7 @@ function ai_move_pusher() {
     }
 
     // The move is binary encoded
-    const possible_moves = Array.from({ length: 2 ** movable - 1 }, (_, index) => index + 1);
+    const possible_moves = get_pusher_moves(game_state);
     possible_moves.sort((a, b) => sum_of_binary_digits(b) - sum_of_binary_digits(a));
 
     // Check each move
@@ -71,25 +71,17 @@ function ai_move_pusher() {
         const result_token_moved = JSON.parse(JSON.stringify(token_moved));
         result_game_state.forEach((col_state, i) => {
             for (let j = 0; j < K; j++) {
-                // Skip removed tokens
-                if (col_state[j] === -1) continue;
-
                 // Unpush tokens that are currently moved
-                if (result_token_moved[i][j]) {
+                if (result_token_moved[i][j] && col_state[j] !== -1) {
                     col_state[j]--;
                     result_token_moved[i][j] = false;
                 }
-
-                // Push tokens that AI want to move
-                let should_move = move % 2;
-                move = Math.floor(move / 2);
-                col_state[j] += should_move;
-                if (should_move > 0) result_token_moved[i][j] = true;
             }
         });
+        apply_pusher_move(result_game_state, result_token_moved, move);
 
         // Check if the Remover must return to a winning state
-        const still_winning = Array(N).fill().map((_, index) => index).every(remover_move => {
+        const still_winning = range(0, N).every(remover_move => {
             // Calculate the board after Remover's move
             let removed_at_least_one = false;
             const final_game_state = JSON.parse(JSON.stringify(result_game_state));

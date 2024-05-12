@@ -37,7 +37,7 @@ function col_state_compare(col1, col2, sorted=false) {
 
 function generate_permutations(n) {
     let results = [];
-    let array = Array.from({ length: n }, (_, index) => index); // Create an array [0, 1, 2, ..., n-1]
+    let array = range(0, n); // Create an array [0, 1, 2, ..., n-1]
 
     function permute(arr, m = []) {
         if (arr.length === 0) {
