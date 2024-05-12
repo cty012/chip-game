@@ -70,7 +70,7 @@ function ai_move_remover() {
         }
 
         // Check if this is a losing state
-        if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state))) {
+        if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state.parsed_game_state))) {
             // Then make this move
             col_removed = move;
             update_tokens();
@@ -83,11 +83,18 @@ function ai_move_remover() {
 }
 
 function ai_move() {
-    if (player === Player.PUSHER) {
-        ai_move_pusher();
-    } else if (player === Player.REMOVER) {
-        ai_move_remover();
-    }
+    const ai_move_btn = document.getElementById("ai-move");
+    if (ai_move_btn.innerHTML === "AI making a move...") return;
+    ai_move_btn.innerHTML = "AI making a move...";
+
+    setTimeout(() => {
+        if (player === Player.PUSHER) {
+            ai_move_pusher();
+        } else if (player === Player.REMOVER) {
+            ai_move_remover();
+        }
+        ai_move_btn.innerHTML = "AI make move";
+    });
 }
 
 document.getElementById("winning-file").addEventListener("change", function(event) {

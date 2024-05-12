@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div id="button-area">
-                <div class="button-container">
+                <div id="button-container">
                     <div id="sec-menu-bar" class="section">
                         <div class="section-line menu">
                             <div id="tab-settings" class="selected" onclick="menu_select(`settings`);">Settings</div>
@@ -51,15 +51,26 @@
                     <div id="sec-ai" class="section hidden">
                         <div class="section-title">AI</div>
                         <div class="section-line">
-                            <span>Upload winning states:&nbsp;</span>
+                            <span>You can load one of the following strategies:</span>
+                        </div>
+                        <div class="section-line">
+                            <button id="wl-n4k3" class="action" onclick="load_wl_n4k3();">N = 4, K = 3 (Score = 4)</button>
+                            <button id="wl-n5k3" class="action" onclick="load_wl_n5k3();">N = 5, K = 3 (Score = 6)</button>
+                            <button id="wl-n6k3" class="action" onclick="load_wl_n6k3();">N = 6, K = 3 (Score = 7)</button>
+                        </div>
+                        <div class="section-line">
+                            <span>Or you can upload your own winning and/or losing states file:</span>
+                        </div>
+                        <div class="section-line">
+                            <span>Winning states:&nbsp;</span>
                             <input type="file" id="winning-file" name="winning-file">
                         </div>
                         <div class="section-line">
-                            <span>Upload losing states:&nbsp;</span>
+                            <span>Losing states:&nbsp;</span>
                             <input type="file" id="losing-file" name="losing-file">
                         </div>
                         <div class="section-line">
-                            <button id="ai-move" class="action" onclick="ai_move();">AI move</button>
+                            <button id="ai-move" class="action" onclick="ai_move();">AI make move</button>
                         </div>
                     </div>
                     <div id="sec-controls" class="section">
@@ -81,6 +92,12 @@
     <script src="game.js"></script>  <!-- Defines the core game functions -->
     <script src="compare.js"></script>  <!-- Compare column states and game states -->
     <script src="history.js"></script>  <!-- Records history of moves -->
+    <script src="n4k3g4_w.js"></script>
+    <script src="n4k3g5_l.js"></script>
+    <script src="n5k3g6_w.js"></script>
+    <script src="n5k3g7_l.js"></script>
+    <script src="n6k3g7_w.js"></script>
+    <script src="n6k3g8_l.js"></script>
     <script src="ai.js"></script>  <!-- AI related functions -->
     <script src="callbacks.js"></script>  <!-- Defines callbacks for buttons -->
     <script src="start.js"></script>  <!-- Entry point -->

@@ -1,10 +1,11 @@
 "use strict";
 
 function col_state_leq(col1, col2) {
-    col1_sorted, col2_sorted = JSON.parse(JSON.stringify(col1)), JSON.parse(JSON.stringify(col2));
-    col1.sort((a, b) => b - a);
-    col2.sort((a, b) => b - a);
-    const len = max(col1_sorted.length, col2_sorted.length);
+    const col1_sorted = JSON.parse(JSON.stringify(col1));
+    const col2_sorted = JSON.parse(JSON.stringify(col2));
+    col1_sorted.sort((a, b) => b - a);
+    col2_sorted.sort((a, b) => b - a);
+    const len = Math.max(col1_sorted.length, col2_sorted.length);
     for (let i = 0; i < len; i++) {
         if (col1_sorted[i] > col2_sorted[i]) return false;
     }

@@ -71,6 +71,21 @@ function toggle_token_label() {
     refresh_button_area();
 }
 
+function load_wl_n4k3() {
+    winning_states = wl_states_n4k3g4_w;
+    losing_states = wl_states_n4k3g5_l;
+}
+
+function load_wl_n5k3() {
+    winning_states = wl_states_n5k3g6_w;
+    losing_states = wl_states_n5k3g7_l;
+}
+
+function load_wl_n6k3() {
+    winning_states = wl_states_n6k3g7_w;
+    losing_states = wl_states_n6k3g8_l;
+}
+
 function restart() {
     init(N, K);
 }
