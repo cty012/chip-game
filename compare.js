@@ -1,9 +1,13 @@
 "use strict";
 
 function col_state_leq(col1, col2, sorted=false) {
-    let col1_sorted = col1;
-    let col2_sorted = col2;
-    if (!sorted) {
+    let col1_sorted = null;
+    let col2_sorted = null;
+
+    if (sorted) {
+        col1_sorted = col1;
+        col2_sorted = col2;
+    } else {
         col1_sorted = JSON.parse(JSON.stringify(col1));
         col2_sorted = JSON.parse(JSON.stringify(col2));
         col1_sorted.sort((a, b) => b - a);

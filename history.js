@@ -48,7 +48,7 @@ function take_snapshot() {
 
 /**
  * Load a snapshot and refreshes everything but the board
- * @param {Object} snapshot 
+ * @param {Object} snapshot The snapshot to load
  */
 function load_snapshot(snapshot) {
     snapshot = JSON.parse(snapshot);
@@ -70,8 +70,8 @@ function load_snapshot(snapshot) {
 function refresh_all(instant) {
     // Toggle board mode
     let winner = check_game_over();
-    if (player === 0 && winner > 0) {
-        player = 1 + winner;
+    if (player === Player.PUSHER && winner !== Player.NONE) {
+        player = (winner === Player.PUSHER ? Player.PUSHER_WIN : Player.REMOVER_WIN);
         ui_board_container.className = `game-over`;
     } else {
         ui_board_container.className = `${player_names[player]}-move`;

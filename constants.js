@@ -14,6 +14,9 @@ const K_max = 9;
 const Player = {
     PUSHER: 0,
     REMOVER: 1,
+    PUSHER_WIN: 2,
+    REMOVER_WIN: 3,
+    NONE: -1,
 };
 
 /**

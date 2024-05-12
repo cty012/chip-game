@@ -58,21 +58,22 @@ function init_game_state(n, k) {
 
 /**
  * WARNING: This function is only intended to be used after a complete turn (i.e. after Remover's move)
- * Returns:
- *   - 0: Game is not over
- *   - 1: Pusher wins
- *   - 2: Remover wins
+ * @param {Array} game_state_to_check The game state to check who is the winner
+ * @returns
+ *   - Player.NONE: Game is not over
+ *   - Player.PUSHER: Pusher wins
+ *   - Player.REMOVER: Remover wins
  */
-function check_game_over() {
-    let winner = 2;
-    game_state.forEach(col_state => {
+function check_game_over(game_state_to_check=game_state, goal=Infinity) {
+    let winner = Player.REMOVER;
+    game_state_to_check.forEach(col_state => {
         col_state.forEach(row => {
             if (row === -1) {
                 return;
-            } else if (false /* row >= N */) {  // Pusher never wins
-                winner = 1;
+            } else if (row >= goal) {
+                winner = Player.PUSHER;
             } else {
-                if (winner === 2) winner = 0;
+                if (winner === Player.REMOVER) winner = Player.NONE;
             }
         });
     });

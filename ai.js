@@ -69,10 +69,15 @@ function ai_move_remover() {
             }
         }
 
-        // Sort the affected column
-        result_game_state[move].sort((a, b) => b - a);
+        // Sort the columns
+        for (let i = 0; i < N; i++) {
+            result_game_state[i].sort((a, b) => b - a);
+        }
 
         // Check if this is a losing state
+        if (check_game_over(result_game_state) === 0) {
+            return true;
+        }
         if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state, true))) {
             // Then make this move
             col_removed = move;
