@@ -72,6 +72,9 @@ function toggle_token_label() {
 }
 
 function load_wl_n4k3() {
+    document.getElementById("wl-n4k3").classList.add("selected");
+    document.getElementById("wl-n5k3").classList.remove("selected");
+    document.getElementById("wl-n6k3").classList.remove("selected");
     document.getElementById("winning-file").value = "";
     document.getElementById("losing-file").value = "";
     winning_states = wl_states_n4k3g4_w;
@@ -79,6 +82,9 @@ function load_wl_n4k3() {
 }
 
 function load_wl_n5k3() {
+    document.getElementById("wl-n4k3").classList.remove("selected");
+    document.getElementById("wl-n5k3").classList.add("selected");
+    document.getElementById("wl-n6k3").classList.remove("selected");
     document.getElementById("winning-file").value = "";
     document.getElementById("losing-file").value = "";
     winning_states = wl_states_n5k3g6_w;
@@ -86,6 +92,9 @@ function load_wl_n5k3() {
 }
 
 function load_wl_n6k3() {
+    document.getElementById("wl-n4k3").classList.remove("selected");
+    document.getElementById("wl-n5k3").classList.remove("selected");
+    document.getElementById("wl-n6k3").classList.add("selected");
     document.getElementById("winning-file").value = "";
     document.getElementById("losing-file").value = "";
     winning_states = wl_states_n6k3g7_w;

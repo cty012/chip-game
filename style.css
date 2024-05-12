@@ -79,10 +79,6 @@ button.disabled {
     width: 100%;
 }
 
-.section-line.menu {
-    height: 30px;
-}
-
 .section-line.menu div {
     display: inline-block;
     width: 100px;
@@ -148,6 +144,10 @@ button.disabled {
     height: 40px;
     font-size: 18px;
     line-height: 34px;
+}
+
+.action.selected {
+    border-style: solid;
 }
 
 /* Board */

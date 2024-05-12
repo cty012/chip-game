@@ -53,7 +53,75 @@ function decode_file(file, callback) {
 }
 
 function ai_move_pusher() {
-    // TODO AI should search for all possible moves and find one that results in winning states.
+    // Count number of movable tokens
+    let movable = game_state.reduce((acc, row) => acc + row.filter(num => num !== -1).length, 0);
+
+    function sum_of_binary_digits(num) {
+        return num.toString(2).split("").reduce((sum, digit) => sum + parseInt(digit), 0);
+    }
+
+    // The move is binary encoded
+    const possible_moves = Array.from({ length: 2 ** movable - 1 }, (_, index) => index + 1);
+    possible_moves.sort((a, b) => sum_of_binary_digits(b) - sum_of_binary_digits(a));
+
+    // Check each move
+    return possible_moves.some(move => {
+        // Calculate the resulting board
+        const result_game_state = JSON.parse(JSON.stringify(game_state));
+        const result_token_moved = JSON.parse(JSON.stringify(token_moved));
+        result_game_state.forEach((col_state, i) => {
+            for (let j = 0; j < K; j++) {
+                // Skip removed tokens
+                if (col_state[j] === -1) continue;
+
+                // Unpush tokens that are currently moved
+                if (result_token_moved[i][j]) {
+                    col_state[j]--;
+                    result_token_moved[i][j] = false;
+                }
+
+                // Push tokens that AI want to move
+                let should_move = move % 2;
+                move = Math.floor(move / 2);
+                col_state[j] += should_move;
+                if (should_move > 0) result_token_moved[i][j] = true;
+            }
+        });
+
+        // Check if the Remover must return to a winning state
+        const still_winning = Array(N).fill().map((_, index) => index).every(remover_move => {
+            // Calculate the board after Remover's move
+            let removed_at_least_one = false;
+            const final_game_state = JSON.parse(JSON.stringify(result_game_state));
+            for (let j = 0; j < K; j++) {
+                if (result_token_moved[remover_move][j]) {
+                    removed_at_least_one = true;
+                    final_game_state[remover_move][j] = -1;
+                }
+            }
+
+            // Filter out invalid moves
+            if (!removed_at_least_one) return true;
+
+            // Sort
+            for (let i = 0; i < N; i++) {
+                final_game_state[i].sort((a, b) => b - a);
+            }
+
+            return winning_states.some(winning_state => game_state_leq(winning_state, final_game_state, true));
+        });
+
+        if (still_winning) {
+            // Then make this move
+            game_state = result_game_state;
+            token_moved = result_token_moved;
+            update_tokens();
+            refresh_button_area();
+            return true;
+        }
+
+        return false;
+    });
 }
 
 function ai_move_remover() {
@@ -74,10 +142,12 @@ function ai_move_remover() {
             result_game_state[i].sort((a, b) => b - a);
         }
 
-        // Check if this is a losing state
-        if (check_game_over(result_game_state) === 0) {
+        // Check if this is already lost
+        if (check_game_over(result_game_state) === Player.REMOVER) {
             return true;
         }
+
+        // Check if this is a losing state
         if (losing_states.some(losing_state => game_state_leq(result_game_state, losing_state, true))) {
             // Then make this move
             col_removed = move;
@@ -109,6 +179,9 @@ function ai_move() {
 document.getElementById("winning-file").addEventListener("change", function(event) {
     var file = event.target.files[0]; // Get the selected file
     if (file) {
+        document.getElementById("wl-n4k3").classList.remove("selected");
+        document.getElementById("wl-n5k3").classList.remove("selected");
+        document.getElementById("wl-n6k3").classList.remove("selected");
         decode_file(file, results => {
             winning_states = results;
         });
@@ -118,6 +191,9 @@ document.getElementById("winning-file").addEventListener("change", function(even
 document.getElementById("losing-file").addEventListener("change", function(event) {
     var file = event.target.files[0]; // Get the selected file
     if (file) {
+        document.getElementById("wl-n4k3").classList.remove("selected");
+        document.getElementById("wl-n5k3").classList.remove("selected");
+        document.getElementById("wl-n6k3").classList.remove("selected");
         decode_file(file, results => {
             losing_states = results;
         });
